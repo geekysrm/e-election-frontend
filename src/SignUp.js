@@ -10,7 +10,7 @@ class SignUpOld extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if (!err) {
+            if (!err && (values.password===values.cpassword)) {
                 console.log('Received values of form: ', values);
                 axios({
                     method: 'post',
@@ -19,13 +19,17 @@ class SignUpOld extends React.Component {
                     config: { headers: { 'Content-Type': 'application/json' } }
                 })
                     .then(function (response) {
-                        alert('Successful post request');
+                        console.log('Successful post request');
                         console.log(response);
                     })
                     .catch(function (response) {
-                        alert('Unsuccessful post request');
+                        console.log('Unsuccessful post request');
                         console.log(response);
                     });
+            }
+            if (!(values.password === values.cpassword))
+            {
+                alert('Please enter the same password in both fields!');
             }
         });
     }
