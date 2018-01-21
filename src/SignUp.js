@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import axios from 'axios';
+import { Form, Icon, Input, Button } from 'antd';
 import 'antd/dist/antd.css';
 import './SignUp.css';
 
@@ -11,9 +12,25 @@ class SignUpOld extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                axios({
+                    method: 'post',
+                    url: '/signup',
+                    data: { name: values.userName, pass: values.password },
+                    config: { headers: { 'Content-Type': 'application/json' } }
+                })
+                    .then(function (response) {
+                        alert('Successful post request');
+                        console.log(response);
+                    })
+                    .catch(function (response) {
+                        alert('Unsuccessful post request');
+                        console.log(response);
+                    });
             }
         });
     }
+
+
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
@@ -26,14 +43,14 @@ class SignUpOld extends React.Component {
                         )}
                 </FormItem>
                 <FormItem>
-                    {getFieldDecorator('password1', {
+                    {getFieldDecorator('password', {
                         rules: [{ required: true, message: 'Please input a Password!' }],
                     })(
                         <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
                         )}
                 </FormItem>
                 <FormItem>
-                    {getFieldDecorator('password', {
+                    {getFieldDecorator('cpassword', {
                         rules: [{ required: true, message: 'Please confirm the Password!' }],
                     })(
                         <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Confirm Password" />
@@ -44,7 +61,7 @@ class SignUpOld extends React.Component {
                    
                     <Button type="primary" htmlType="submit" className="login-form-button">
                         Register
-          </Button>
+                    </Button>
                     Or <a href="/login">login here!</a>
                 </FormItem>
             </Form>
