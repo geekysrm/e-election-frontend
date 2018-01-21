@@ -17,6 +17,7 @@ const AppRouter = () => (
                 <Route path="/register" component={SignUp} />
                 <Route path="/login" component={Login} />
 
+
             </Switch>
         </div>
 

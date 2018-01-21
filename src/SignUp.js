@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Form, Icon, Input, Button } from 'antd';
 import 'antd/dist/antd.css';
 import './SignUp.css';
+import { NavLink } from 'react-router-dom';
+
 
 const FormItem = Form.Item;
 
@@ -14,23 +16,30 @@ class SignUpOld extends React.Component {
                 console.log('Received values of form: ', values);
                 axios({
                     method: 'post',
-                    url: '/signup',
+                    url: '/signup',                                           //URL to be modified here
                     data: { name: values.userName, pass: values.password },
                     config: { headers: { 'Content-Type': 'application/json' } }
                 })
                     .then(function (response) {
                         console.log('Successful post request');
                         console.log(response);
+                        window.location.assign("/login");
+                        //TODO: where to place "successfully registered, please login"
+                      
                     })
                     .catch(function (response) {
                         console.log('Unsuccessful post request');
                         console.log(response);
+                        
                     });
             }
-            if (!(values.password === values.cpassword))
-            {
-                alert('Please enter the same password in both fields!');
-            }
+           
+         
+                if ((values.password !== values.cpassword)&&(values.password.length>=8))
+                     {
+                        alert('Please enter the same password in both fields!');
+                    }
+            
         });
     }
 
@@ -48,14 +57,14 @@ class SignUpOld extends React.Component {
                 </FormItem>
                 <FormItem>
                     {getFieldDecorator('password', {
-                        rules: [{ required: true, message: 'Please input a Password!' }],
+                        rules: [{ required: true, message: 'Please input a Password!' }, {min:8, message: 'Minimum length of password is 8!'}],
                     })(
                         <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
                         )}
                 </FormItem>
                 <FormItem>
                     {getFieldDecorator('cpassword', {
-                        rules: [{ required: true, message: 'Please confirm the Password!' }],
+                        rules: [{ required: true, message: 'Please confirm the Password!' },{enum: 'hello', message:"must be hello"}],
                     })(
                         <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Confirm Password" />
                         )}
@@ -66,7 +75,7 @@ class SignUpOld extends React.Component {
                     <Button type="primary" htmlType="submit" className="login-form-button">
                         Register
                     </Button>
-                    Or <a href="/login">login here!</a>
+                    Or <NavLink to="/login">login here!</NavLink>
                 </FormItem>
             </Form>
         );

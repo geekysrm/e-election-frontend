@@ -1,7 +1,10 @@
 import React from 'react';
+import axios from 'axios';
 import { Form, Icon, Input, Button } from 'antd';
 import 'antd/dist/antd.css';
 import './SignUp.css';
+import { NavLink } from 'react-router-dom';
+
 
 const FormItem = Form.Item;
 
@@ -11,6 +14,23 @@ class LoginOld extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                axios({
+                    method: 'post',
+                    url: '/login',                                           //URL to be modified here
+                    data: { name: values.userName, pass: values.password },
+                    config: { headers: { 'Content-Type': 'application/json' } }
+                })
+                    .then(function (response) {
+                        console.log('Successful post request');
+                        console.log(response);
+                        window.location.assign("/home");
+
+                    })
+                    .catch(function (response) {
+                        console.log('Unsuccessful post request');
+                        console.log(response);
+
+                    });
             }
         });
     }
@@ -38,7 +58,7 @@ class LoginOld extends React.Component {
                     <Button type="primary" htmlType="submit" className="login-form-button">
                         Login
           </Button>
-                    Or <a href="/register">register now!</a>
+                    Or <NavLink to="/register">register now!</NavLink>
                 </FormItem>
             </Form>
         );
