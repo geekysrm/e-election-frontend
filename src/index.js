@@ -5,6 +5,7 @@ import App from './App';
 import Home from './Home';
 // import SignUp from './SignUp';
 // import Login from './Login';
+import GetCredentials from './GetCredentials';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'; 
 import registerServiceWorker from './registerServiceWorker';
 import 'normalize.css/normalize.css';
@@ -15,8 +16,8 @@ const AppRouter = () => (
         <div>
             <Switch>
                 <Route path="/" component={App} exact={true} />
-                <Route path="/home" component={Home} exact={true} />
-
+                <Route path="/home" component={Home} />
+                <Route path="/get-credentials" component={GetCredentials} />
 
 
             </Switch>

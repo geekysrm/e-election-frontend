@@ -30,7 +30,7 @@ class SignUpOld extends React.Component {
                     .catch(function (response) {
                         console.log('Unsuccessful post request');
                         console.log(response);
-                        
+                        alert('Sorry! Server Error!');
                     });
             }
            
