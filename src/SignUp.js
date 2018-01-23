@@ -38,7 +38,7 @@ class SignUpOld extends React.Component {
                 if ((values.password !== values.cpassword)&&(values.password.length>=8))
                      {
                         alert('Please enter the same password in both fields!');
-                    }
+                     }
             
         });
     }

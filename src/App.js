@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
+import { Button } from 'antd';
 import './App.css';
+import 'antd/dist/antd.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+          <h1>Welcome to E-Election</h1>
+        <div>
+          <Button type="primary" href="https://auth.cheep56.hasura-app.io/ui/login/username?redirect_url=https://ui.cheep56.hasura-app.io/home">Login</Button>  
+          <Button type="primary" href="https://auth.cheep56.hasura-app.io/ui/signup/username/?redirect_url=https://goo.gl/fEGUK8">Register</Button>
+
+        </div>
       </div>
     );
   }
