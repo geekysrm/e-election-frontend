@@ -172,7 +172,7 @@ const gender = [{
 
 }];
 
-const credential = document.getElementById('cred');
+
 
 class CredentialsForm extends React.Component {
     state = {
@@ -184,8 +184,11 @@ class CredentialsForm extends React.Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-                var dateGot =  moment(values.date).format("YYYY-MM-DD");
-                console.log(dateGot);
+                const nowDate = moment();
+                var dateMoment = moment(values.date);
+                var dateGot = dateMoment.format("YYYY-MM-DD");
+                var age = nowDate.diff(dateGot, 'years');
+                console.log(age);
                 axios({
                     method: 'post',
                     url: '/get-credentials',                                           //URL to be modified here
@@ -195,7 +198,7 @@ class CredentialsForm extends React.Component {
                     .then(function (response) {
                         console.log('Successful post request');
                         console.log(response);
-                        credential.innerHTML = response.data;
+                        //TODO: Display credentials got from response in a copiable span 
 
                     })
                     .catch(function (response) {
@@ -227,15 +230,6 @@ class CredentialsForm extends React.Component {
         callback();
     }
 
-    handleWebsiteChange = (value) => {
-        let autoCompleteResult;
-        if (!value) {
-            autoCompleteResult = [];
-        } else {
-            autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-        }
-        this.setState({ autoCompleteResult });
-    }
 
     render() {
        
@@ -395,10 +389,14 @@ class CredentialsForm extends React.Component {
                 {
                     /*
                     TO DO: Add photo upload
+                        &
+                    Check for >=18 years
+                        &
+                    Display get credentials
                     */
                 }
             </Form>
-            <span id="cred"></span>
+           
             </div>
         );
     }
