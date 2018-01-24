@@ -26,5 +26,5 @@ const AppRouter = () => (
     </BrowserRouter>
 );
 
-ReactDOM.render(<div><AppRouter /><p>Neha kumari</p></div>, document.getElementById('root'));
+ReactDOM.render(<div><AppRouter /></div>, document.getElementById('root'));
 registerServiceWorker();
